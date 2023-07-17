@@ -1,3 +1,5 @@
+from typing import Any
+from django.db.models.query import QuerySet
 from django.shortcuts import redirect, get_object_or_404
 from django.views.generic.base import TemplateResponseMixin, View
 from django.views.generic.list import ListView
@@ -13,6 +15,7 @@ from django.db.models import Count
 from braces.views import CsrfExemptMixin, JsonRequestResponseMixin
 from .forms import ModuleFormSet
 from .models import Course, Module, Content, Subject
+from courses.models import Course
 
 from students.forms import CourseEnrollForm
 
@@ -196,7 +199,7 @@ class CourseListView(TemplateResponseMixin, View):
 
     def get(self, request, subject=None):
         subjects = Subject.objects.annotate(total_courses=Count('courses'))
-        courses = Subject.objects.annotate(total_modules=Count('modules'))
+        courses = Course.objects.annotate(total_modules=Count('modules'))
 
         if subject:
             subject = get_object_or_404(Subject, slug=subject)
@@ -215,4 +218,7 @@ class CourseDetailView(DetailView):
         context['enroll_form'] = CourseEnrollForm(initial={'course': self.object})
         return context
     
+
+
+
 
