@@ -20,6 +20,12 @@ from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from courses.views import CourseListView
 
+
+api_urlpatterns = [
+    path('accounts/', include('rest_registration.api.urls', namespace='registrationapi')),
+    path('', include('courses.api.urls', namespace='courseapi')),
+]
+
 urlpatterns = [
     path('accounts/login/', auth_views.LoginView.as_view(),
           name='login'),
@@ -28,7 +34,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('course/', include('courses.urls')),
     path('students/', include('students.urls')),
-    path('', CourseListView.as_view(), name='course_list')
+    path('', CourseListView.as_view(), name='course_list'),
+    path('api/v1/', include(api_urlpatterns)),
 ]
 
 if settings.DEBUG:
