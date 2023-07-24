@@ -11,22 +11,35 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 import os
+import environ
 from pathlib import Path
 from django.urls import reverse_lazy
+
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Take environment variables from .env file
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-rpqnholsnp)9f=9k!u*(y=r2y#17x@zo)@v9owfb0ej1o#+ae*'
+# SECRET_KEY = os.getenv('SECRET_KEY')
+
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = os.getenv('DEBUG', default=True)
 
-ALLOWED_HOSTS = []
+DEBUG = env('DEBUG')
+
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -42,6 +55,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'embed_video',
     'rest_framework',
+    'drf_yasg',
     'rest_registration',
 ]
 
@@ -131,7 +145,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 # the base URL to serve uploaded media files
 MEDIA_URL = '/media/'
 # the local path where the files are located.

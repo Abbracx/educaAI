@@ -1,0 +1,27 @@
+version: '3.4'
+
+services:
+  educaai:
+    image: educaai
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - static:/static
+    env_file:
+      - .env
+    ports:
+      - 8000:8000
+    
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx_config:/etc/nginx/conf.d
+      - ./static:/static
+    depends_on: 
+      - educaai
+  
+volumes:
+  static:

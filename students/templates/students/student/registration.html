@@ -13,5 +13,6 @@ Sign up </h1>
     {% csrf_token %}
     <p><input type="submit" value="Create my account"></p>
   </form>
+  <p>Already have an account? <a href="{% url 'login' %}">LOGIN</a></p>
 </div>
 {% endblock %}
