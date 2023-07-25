@@ -1,6 +1,6 @@
 # educaAI
 
-##To Run Project
+## To Run Project
 
 1. Goto command line and ``git clone git@github.com:Abbracx/educaAI.git``
 2. cd into educaAI
@@ -9,7 +9,7 @@
 5. In browser of your choice, navigate to `0.0.0.0:80`
 6. Or checkout the swagger api  documentation on `http://0.0.0.0/swagger/`
 
-###NOTE: 
+### NOTE: 
 
 1. Use root as username
 2. use root as password
