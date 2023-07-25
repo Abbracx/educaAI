@@ -31,6 +31,9 @@
         </ul>
     </div>
     <div class="module">
+    {% if request.user.is_staff %}
+     Ohh! Your are an admin 🎉, please <a href="{% url 'manage_course_list'%}">GOTO DASHBOARD</a>
+    {% endif %}
     {% for course in courses %}
         {% with subject=course.subject %}
         <h3>
@@ -45,5 +48,6 @@
         </p>
         {% endwith %}
     {% endfor %}
+    
     </div>
 {% endblock %}
