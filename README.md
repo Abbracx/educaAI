@@ -7,6 +7,7 @@
 3. `touch .env` and add the environment variables from `.env-example`
 4. run `docker compose -f "docker-compose.yml" up -d --build `
 5. In browser of your choice, navigate to `0.0.0.0:80`
+6. Or checkout the swagger api  documentation on `http://0.0.0.0/swagger/`
 
 ###NOTE: 
 
